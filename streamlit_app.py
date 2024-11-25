@@ -133,16 +133,32 @@ def main():
 
         st.header("Nutritional Insights")
         
-        focus_data = pd.DataFrame({
-            "Aspect": ["Carbohydrate Control", "Protein Intake", "Healthy Fats", "Fiber"],
-            "Importance": [30, 25, 25, 20]
-        })
+        if medical_condition == "Diabetes":
+            focus_data = pd.DataFrame({
+                "Aspect": ["Carbohydrate Control", "Protein Intake", "Fiber", "Healthy Fats"],
+                "Importance": [40, 30, 20, 10]
+            })
+        elif medical_condition == "Cardiovascular Disease":
+            focus_data = pd.DataFrame({
+                "Aspect": ["Healthy Fats", "Fiber", "Protein Intake", "Carbohydrate Control"],
+                "Importance": [35, 30, 20, 15]
+            })
+        elif medical_condition == "Both":
+            focus_data = pd.DataFrame({
+                "Aspect": ["Carbohydrate Control", "Healthy Fats", "Fiber", "Protein Intake"],
+                "Importance": [30, 30, 20, 20]
+            })
+        else:
+            focus_data = pd.DataFrame({
+                "Aspect": ["Balanced Nutrition", "Hydration", "Fiber", "Healthy Fats"],
+                "Importance": [25, 25, 25, 25]
+            })
         
         fig = px.pie(
             focus_data, 
             values='Importance', 
             names='Aspect', 
-            title='Dietary Focus Distribution'
+            title=f"Dietary Focus Distribution ({medical_condition})"
         )
         st.plotly_chart(fig, use_container_width=True)
 
